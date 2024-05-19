@@ -34,7 +34,7 @@ def fetch_from_query(query,csvfilename):
 
     # Load the OpenAI API key from the environment variable
     if os.getenv("OPENAI_API_KEY") is None or os.getenv("OPENAI_API_KEY") == "":
-        return jsonify({"error": "OPENAI_API_KEY is not set"}), 500
+        return "Server Error!"
 
     if csvfilename is None:
         return "No CSV File Provided!"
@@ -71,7 +71,7 @@ def index():
             uploaded_file.save(file_path)
         res = calculator(uploaded_file.filename)
         answer = fetch_from_query(query,uploaded_file.filename)
-        return render_template("user_data.html", value=json.loads(res),answer=answer)
+        return render_template("user_data.html", value=json.loads(res),answer=answer, query=query)
     else:
         return render_template("user_data.html", value=[])
     

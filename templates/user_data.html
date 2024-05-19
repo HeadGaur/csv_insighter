@@ -1,49 +1,45 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %} 
+<h1>Welcome to CSV Insighter</h1>
+<form action="/" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Please Upload csv file!</label>
+    <input name="file" class="form-control" type="file" id="formFile" />
+  </div>
 
-    <h1>Welcome to CSV Insighter</h1>
-    <form action = "/" method = "POST" 
-        enctype = "multipart/form-data">
-        <div class="mb-3">
-          <label for="formFile" class="form-label">Please Upload csv file!</label>
-          <input name="file" class="form-control" type="file" id="formFile">
-        </div>
-        
-        <div class="input-group">
-          <span class="input-group-text">Query</span>
-          <input name="query" type="text" aria-label="Query" class="form-control">
-        </div>
-        <input type = "submit"/>
-    </form>  
-    {% if value|length > 0 %}
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">month</th>
-            <th scope="col">amount</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            {% for b in value: %}
-            <tr>
-                <td>{{ b.id }}</td>
-                <td>{{ b.month }}</td>
-                <td>{{ b.amount }}</td>
-            </tr>
-        {% endfor %}
-
-        </tbody>
-      </table>
-      {% endif %}
-      <p>Result : {{answer}}</p>
-
-
-      {% endblock %}
-
-
-{% block content2 %} 
-    <h1> Yoho </h1>
-    <div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis">.bg-danger-subtle</div>
-{% endblock %}
+  <div class="input-group">
+    <span class="input-group-text">Query</span>
+    <input
+      name="query"
+      type="text"
+      aria-label="Query"
+      class="form-control"
+      value="{{query}}"
+    />
+  </div>
+  <input type="submit" class="mt-3" />
+</form>
+{% if answer %}
+<div class="alert alert-success my-3" role="alert">Result : {{answer}}</div>
+{% endif %}
+<hr />
+{% if value|length > 0 %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">month</th>
+      <th scope="col">amount</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    {% for b in value: %}
+    <tr>
+      <td>{{ b.id }}</td>
+      <td>{{ b.month }}</td>
+      <td>{{ b.amount }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %} {% endblock %}
