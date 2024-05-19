@@ -71,7 +71,7 @@ def index():
             uploaded_file.save(file_path)
         res = calculator(uploaded_file.filename)
         answer = fetch_from_query(query,uploaded_file.filename)
-        return render_template("user_data.html", value=json.loads(res),answer=answer)
+        return render_template("user_data.html", value=json.loads(res),answer=answer, query=query)
     else:
         return render_template("user_data.html", value=[])
     
