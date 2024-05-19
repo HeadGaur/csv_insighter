@@ -26,7 +26,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def calculator(filename)->str:
     load_dotenv()
     df = pd.read_csv(os.path.join(UPLOAD_FOLDER, filename))
-    response = df.to_json(orient='records')
+    response = df.to_json(orient="split")
     return response
 
 def fetch_from_query(query,csvfilename):
@@ -88,10 +88,18 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route('/chat_csv', methods=['GET'])
+@app.route('/calculator', methods=['POST'])
 def chat_csv_2():
-    response = calculator()
-    return jsonify({"data" : json.loads(response)}),200
+
+    uploaded_file = request.files['file']
+    query = request.form.get('query')
+    print(query)
+    if uploaded_file.filename != '':
+        file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.filename)
+        uploaded_file.save(file_path)
+    res = calculator(uploaded_file.filename)
+    return jsonify({"data" : json.loads(res)}),200
+
     
     
     
