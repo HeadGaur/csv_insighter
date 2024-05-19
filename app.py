@@ -71,6 +71,7 @@ def index():
             uploaded_file.save(file_path)
         res = calculator(uploaded_file.filename)
         answer = fetch_from_query(query,uploaded_file.filename)
+        os.remove(file_path)
         return render_template("user_data.html", value=json.loads(res),answer=answer, query=query)
     else:
         return render_template("user_data.html", value=[])
@@ -91,7 +92,6 @@ def about():
 def chat_csv_2():
     response = calculator()
     return jsonify({"data" : json.loads(response)}),200
-
     
     
     
