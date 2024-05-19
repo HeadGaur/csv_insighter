@@ -2,8 +2,8 @@
 
 {% block content %} 
 <div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-md-5">
+    <div class="row">
+        <div class="col-md-5 order-md-2">
             <div class="profile-card">
                 <div class="profile-img">
                     <img src="{{url_for('static', filename='images/profile.png')}}" alt="Team Image"/>
@@ -19,6 +19,17 @@
                         <li><a href="#" class="fa fa-youtube"></a></li>
                     </ul>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-7 order-md-1">
+            <div class="usage-instructions">
+                <h3 class="title">How to Use the Website:</h3>
+                <ol>
+                    <li>Upload a CSV file containing your data.</li>
+                    <li>Optionally, submit to check if you want to review the data headers.</li>
+                    <li>Write a query specifying what you want to analyze in the CSV file.</li>
+                    <li>Submit your query, and voila! You'll receive your desired analysis.</li>
+                </ol>
             </div>
         </div>
     </div>
