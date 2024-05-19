@@ -65,12 +65,14 @@ def index():
     if request.method == 'POST':
         uploaded_file = request.files['file']
         query = request.form.get('query')
-        print(query)
         if uploaded_file.filename != '':
             file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.filename)
             uploaded_file.save(file_path)
         res = calculator(uploaded_file.filename)
-        answer = fetch_from_query(query,uploaded_file.filename)
+        if query  != '':
+            answer = fetch_from_query(query,uploaded_file.filename)
+        else:
+            answer = ''
         os.remove(file_path)
         return render_template("user_data.html", value=json.loads(res),answer=answer, query=query)
     else:
